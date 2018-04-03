@@ -5,34 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Opencv_Template_Initializer"
         mc:Ignorable="d"
-        Title="OpenCV Initializer 1.0" Height="501" Width="586">
+        Title="OpenCV Initializer 1.0" Height="501" Width="586" Icon="ico_25_4dQ_icon.ico" ResizeMode="CanMinimize">
     <Grid Margin="0,0,2,2">
+
+        <Label Content="OpenCV Source Path" HorizontalAlignment="Left" Margin="8,14,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txt_cv_path" HorizontalAlignment="Left" Height="21" Margin="10,42,0,0" TextWrapping="Wrap" Text="Please choose the OpenCV source path.." VerticalAlignment="Top" Width="460"
                  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" IsEnabled="False"/>
-        <CheckBox x:Name="chk_project_x86r" Content="x86 Release" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" IsEnabled="False"/>
-        <CheckBox x:Name="chk_project_x86d" Content="x86 Debug" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" IsEnabled="False"/>
-        <CheckBox x:Name="chk_project_x64r" Content="x64 Release" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" IsEnabled="False"/>
-        <CheckBox x:Name="chk_project_x64d" Content="x64 Debug" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" IsChecked="True" IsEnabled="False"/>
-        <Label Content="OpenCV Source Path" HorizontalAlignment="Left" Margin="8,14,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Button x:Name="btn_cv_path" Content="Browse.." Grid.Column="5" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="75" Click="btn_cv_path_Click"/>
+
+
+
+
+        <Label Content="Architecture: " HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+
+        <CheckBox x:Name="chk_project_x86d" Content="x86 Debug" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" IsEnabled="False"/>
+        <CheckBox x:Name="chk_project_x86r" Content="x86 Release" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" IsEnabled="False"/>
+        <CheckBox x:Name="chk_project_x64d" Content="x64 Debug" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" IsChecked="True" IsEnabled="False"/>
+        <CheckBox x:Name="chk_project_x64r" Content="x64 Release" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" IsEnabled="False"/>
+
+        <RadioButton x:Name="rad_project_x86" Content="x86" Grid.Column="2" HorizontalAlignment="Left" Margin="10,16,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="project_architecture" IsChecked="False" />
+        <RadioButton x:Name="rad_project_x64" Content="x64" Grid.Column="3" HorizontalAlignment="Left" Margin="10,16,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="project_architecture" IsChecked="True" />
+        <RadioButton x:Name="rad_vs_2015" Content="VS 2015" Grid.Column="4" HorizontalAlignment="Left" Margin="10,25,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="tools_ver" IsChecked="True"/>
+        <RadioButton x:Name="rad_vs_2017" Content="VS 2017" Grid.Column="4" HorizontalAlignment="Left" Margin="10,48,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="tools_ver"/>
+
+
+
+        <Label Content="Include Content: " HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="chk_project_incl_main" Content="main.cpp" Grid.Column="2" Margin="5,10,5,0" Grid.Row="2" VerticalAlignment="Top" IsChecked="True" IsEnabled="False"/>
         <CheckBox x:Name="chk_project_incl_lena" Content="Lena.png" Margin="5,10,5,0" Grid.Row="2" VerticalAlignment="Top" Grid.Column="3"/>
-        <Button x:Name="btn_about" Content="About" Grid.Column="5" Margin="10" Grid.Row="4" Click="Button_Click"/>
-        <Button x:Name="run_execute_init" Content="CV Init" Grid.Column="4" Margin="10" Grid.Row="4" Click="run_execute_init_Click" />
+        <CheckBox x:Name="chk_project_incl_wildlife" Content="Wildlife.mp4" Grid.Column="4" Margin="5,10,5,0" Grid.Row="2" VerticalAlignment="Top"/>
+
+
+
         <Label Content="CV Version:" Margin="45,10,35,0" Grid.Row="4" VerticalAlignment="Top" Width="77" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Label Content="Lastest Version:" Margin="22,41,12,0" Grid.Row="4" VerticalAlignment="Top" Width="123" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Label x:Name="lbl_cv_version_local" Content="-" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="77" Grid.Column="2"/>
         <Label x:Name="lbl_cv_version_latest" Content="-" HorizontalAlignment="Left" Margin="10,41,0,0" Grid.Row="4" VerticalAlignment="Top" Width="77" Grid.Column="2"/>
-        <Label Content="Include Content: " HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Label Content="Architecture: " HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-
-        <CheckBox x:Name="chk_project_incl_main" Content="main.cpp" Grid.Column="2" Margin="5,10,5,0" Grid.Row="2" VerticalAlignment="Top" IsChecked="True" IsEnabled="False"/>
-        <CheckBox x:Name="chk_project_incl_wildlife" Content="Wildlife.mp4" Grid.Column="4" Margin="5,10,5,0" Grid.Row="2" VerticalAlignment="Top" IsEnabled="False"/>
-
-        <RadioButton x:Name="rad_project_x86" Content="x86" Grid.Column="2" HorizontalAlignment="Left" Margin="10,16,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="project_architecture" IsChecked="False" />
-        <RadioButton x:Name="rad_project_x64" Content="x64" Grid.Column="3" HorizontalAlignment="Left" Margin="10,16,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="project_architecture" IsChecked="True" />
-
-        <RadioButton x:Name="rad_vs_2015" Content="VS 2015" Grid.Column="4" HorizontalAlignment="Left" Margin="10,25,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="tools_ver" IsChecked="True"/>
-        <RadioButton x:Name="rad_vs_2017" Content="VS 2017" Grid.Column="4" HorizontalAlignment="Left" Margin="10,48,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="tools_ver"/>
+        <Button x:Name="run_execute_init" Content="CV Init" Grid.Column="4" Margin="10" Grid.Row="4" Click="run_execute_init_Click" />
+        <Button x:Name="btn_about" Content="About" Grid.Column="5" Margin="10,10,10,45" Grid.Row="4" Click="Button_Click"/>
+        <Button x:Name="btn_exit" Content="Exit" Grid.Column="5" HorizontalAlignment="Left" Margin="10,54,0,0" Grid.Row="4" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.08,0.25" Height="30" Click="btn_exit_Click"/>
+        <Button x:Name="btn_mgmt_visit_web" Content="Visit OpenCV" HorizontalAlignment="Left" Margin="6,59,0,0" Grid.Row="4" VerticalAlignment="Top" Width="94" Height="25" Grid.Column="3" Click="btn_mgmt_visit_web_Click"/>
+        <Button x:Name="btn_mgmt_check_update" Content="Check Update" Grid.Column="3" HorizontalAlignment="Left" Margin="6,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="94" Height="39" Click="btn_mgmt_check_update_Click"/>
 
 
         <Grid.ColumnDefinitions>

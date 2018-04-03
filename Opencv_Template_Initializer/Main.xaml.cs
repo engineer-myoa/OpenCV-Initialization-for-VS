@@ -20,13 +20,9 @@ using System.IO.Packaging;
 using System.Security.Principal;
 using System.Diagnostics;
 
-
 namespace Opencv_Template_Initializer
 {
 
-    /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
-    /// </summary>
     public partial class MainWindow : Window
     {
         public static bool IsAdministrator() {
@@ -40,8 +36,9 @@ namespace Opencv_Template_Initializer
             return false;
         }
 
+        
 
-        CheckBox[] chk_project_architecture;
+        //CheckBox[] chk_project_architecture;
         CheckBox[] chk_project_incl;
         Regex cv_version_local;
         String result_path;
@@ -71,7 +68,7 @@ namespace Opencv_Template_Initializer
             }
 
 
-            chk_project_architecture = new CheckBox[] { chk_project_x86r, chk_project_x86d, chk_project_x64r, chk_project_x64d};
+            //chk_project_architecture = new CheckBox[] { chk_project_x86r, chk_project_x86d, chk_project_x64r, chk_project_x64d};
             chk_project_incl = new CheckBox[] { chk_project_incl_main, chk_project_incl_lena, chk_project_incl_wildlife };
 
             
@@ -128,12 +125,7 @@ namespace Opencv_Template_Initializer
                         try {
                             cvVer = int.Parse(version);
                             if (cvVer >= 310) {
-                                /*
-                                chk_project_x86d.IsEnabled = false;
-                                chk_project_x86d.IsChecked = false;
-                                chk_project_x86r.IsEnabled = false;
-                                chk_project_x86r.IsChecked = false;
-                                */
+
                                 rad_project_x86.IsChecked = false;
                                 rad_project_x86.IsEnabled = false;
                                 rad_project_x64.IsChecked = true;
@@ -226,6 +218,25 @@ namespace Opencv_Template_Initializer
                 "Myoa Engineering\n" +
                 "myoatm@gmail.com\n"
                 ,MessageBoxImage.Information);
+        }
+
+        private void btn_exit_Click(object sender, RoutedEventArgs e) {
+            System.Environment.Exit(0);
+
+        }
+
+        private void btn_mgmt_check_update_Click(object sender, RoutedEventArgs e) {
+            Mgmt mgmt = new Mgmt();
+            int cvVer = mgmt.checkUpdate();
+
+            lbl_cv_version_latest.Content = cvVer.ToString();
+
+        }
+
+        private void btn_mgmt_visit_web_Click(object sender, RoutedEventArgs e) {
+            Mgmt mgmt = new Mgmt();
+            mgmt.openWeb();
+
         }
     }
 }

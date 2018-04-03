@@ -80,6 +80,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GarbageCollector.cs" />
+    <Compile Include="Mgmt.cs" />
     <Compile Include="WizardHandler.cs" />
     <Page Include="Main.xaml">
       <Generator>MSBuild:Compile</Generator>
