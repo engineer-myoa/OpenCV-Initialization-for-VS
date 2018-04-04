@@ -8,7 +8,7 @@ using System.IO;
 using System.IO.Compression;
 
 namespace Opencv_Template_Initializer {
-    class GarbageCollector {
+    class FileManager {
 
 
         public void compress(String src, String dest) {
@@ -42,9 +42,17 @@ namespace Opencv_Template_Initializer {
         }
 
         public static void deleteFile(String path) {
-            if(GarbageCollector.isExistFile(path)) {
+            if(FileManager.isExistFile(path)) {
                 File.Delete(path);
             }
+        }
+
+        public bool copyFile(String src, String dest) {
+            if(File.Exists(src)) {
+                File.Copy(src, dest);
+            }
+            return false;
+            
         }
 
 

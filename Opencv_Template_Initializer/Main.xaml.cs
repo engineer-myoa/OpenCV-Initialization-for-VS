@@ -42,6 +42,15 @@ namespace Opencv_Template_Initializer
         CheckBox[] chk_project_incl;
         Regex cv_version_local;
         String result_path;
+        String vs_template_path;
+
+
+        const String VS_TEMPLATE_PATH_15 = @"\Visual Studio 2015\Templates\ProjectTemplates";
+        const String VS_TEMPLATE_PATH_17 = @"\Visual Studio 2017\Templates\ProjectTemplates";
+        const String FILE_SRC = "templates.zip";
+        const String FILE_DEST = "OpenCV_Template_VS.zip";
+        const String FOLDER_SRC = "templates";
+
         static bool dirSearchFinded = false;
         int cvVer;
 
@@ -76,7 +85,10 @@ namespace Opencv_Template_Initializer
             chk_project_incl_dict.Add("main.cpp", chk_project_incl_main);
             chk_project_incl_dict.Add("lena.png", chk_project_incl_lena);
             chk_project_incl_dict.Add("Wildlife.mp4", chk_project_incl_wildlife);
-            
+
+            vs_template_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + VS_TEMPLATE_PATH_15;
+            txt_vs_path.Text = vs_template_path;
+
 
 
             cv_version_local = new Regex(@"opencv_world(\d*)");
@@ -129,7 +141,7 @@ namespace Opencv_Template_Initializer
                                 rad_project_x86.IsChecked = false;
                                 rad_project_x86.IsEnabled = false;
                                 rad_project_x64.IsChecked = true;
-
+                                showMsg("이 OpenCV 버전에서는 32bit 플랫폼을 지원하지 않습니다.", MessageBoxImage.Information);
                             }
                         } catch(Exception e) {
 
@@ -187,9 +199,9 @@ namespace Opencv_Template_Initializer
 
             try {
 
-                GarbageCollector gc = new GarbageCollector();
-                gc.cleanFolder("templates");
-                gc.decompress("templates.zip", "templates");
+                FileManager fm = new FileManager();
+                fm.cleanFolder(FOLDER_SRC);
+                fm.decompress(FILE_SRC, FOLDER_SRC);
 
                 WizardHandler wh = new WizardHandler(osVerDetail, vsVer, cvVer, result_path);
                 //wh.change_doc2_platform_toolset(convertChkValue(chk_project_architecture));
@@ -199,8 +211,9 @@ namespace Opencv_Template_Initializer
                 wh.change_doc1_incl(chk_project_incl_dict);
                 wh.change_windows_path((bool)rad_project_x64.IsChecked);
 
-                gc.compress("templates", "OpenCV_Template_VS.zip");
-                gc.cleanFolder("templates");
+                fm.compress(FOLDER_SRC, FILE_DEST);
+                fm.cleanFolder(FOLDER_SRC);
+                fm.copyFile(FILE_DEST, vs_template_path + @"\" + FILE_DEST);
 
 
                 showMsg("설정이 완료되었습니다", MessageBoxImage.Information);
@@ -214,7 +227,7 @@ namespace Opencv_Template_Initializer
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            showMsg("OpenCV Intializer 1.0\n\n" +
+            showMsg("OpenCV Intializer 1.2.0\n\n" +
                 "Myoa Engineering\n" +
                 "myoatm@gmail.com\n"
                 ,MessageBoxImage.Information);
@@ -237,6 +250,32 @@ namespace Opencv_Template_Initializer
             Mgmt mgmt = new Mgmt();
             mgmt.openWeb();
 
+        }
+
+        private void rad_vs_2015_Checked(object sender, RoutedEventArgs e) {
+            vs_template_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + VS_TEMPLATE_PATH_15;
+            txt_vs_path.Text = vs_template_path;
+        }
+
+        private void rad_vs_2017_Checked(object sender, RoutedEventArgs e) {
+            vs_template_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + VS_TEMPLATE_PATH_17;
+            txt_vs_path.Text = vs_template_path;
+        }
+
+        private void btn_vs_path_Click(object sender, RoutedEventArgs e) {
+            System.Windows.Forms.FolderBrowserDialog ofd_path = new System.Windows.Forms.FolderBrowserDialog();
+            ofd_path.ShowDialog();
+
+            dirSearchFinded = false;
+            String tmp_path = ofd_path.SelectedPath;
+            if (tmp_path == "") {
+                showMsg("경로 선택이 취소되었습니다", MessageBoxImage.Error);
+                return;
+            }
+
+
+            vs_template_path = tmp_path;
+            txt_vs_path.Text = vs_template_path;
         }
     }
 }

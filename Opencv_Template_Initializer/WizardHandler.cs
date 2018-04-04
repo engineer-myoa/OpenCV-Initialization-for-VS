@@ -238,7 +238,7 @@ namespace Opencv_Template_Initializer {
                             elem_ProjectItem.InnerText = key;
                             cursor.AppendChild(elem_ProjectItem);
                         } else {
-                            GarbageCollector.deleteFile(@"templates\" + key);
+                            FileManager.deleteFile(@"templates\" + key);
                         }
                     }
                 }
