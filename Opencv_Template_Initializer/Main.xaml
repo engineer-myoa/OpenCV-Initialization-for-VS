@@ -13,7 +13,7 @@
                 Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" IsEnabled="False" FontSize="11"/>
         <Button x:Name="btn_cv_path" Content="Browse.." Grid.Column="5" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="75" Click="btn_cv_path_Click"/>
 
-        <Label Content="Visual Studio Template Path (Not Recommended)" HorizontalAlignment="Left" Margin="13,77,0,0" VerticalAlignment="Top"  Grid.ColumnSpan="4" Width="285"/>
+        <Label Content="Visual Studio Template Path" HorizontalAlignment="Left" Margin="13,77,0,0" VerticalAlignment="Top"  Grid.ColumnSpan="3" Width="164"/>
         <TextBox x:Name="txt_vs_path" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="23" Margin="13,104,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top"
                 Width="451" IsEnabled="False" FontSize="11" />
         <Button x:Name="btn_vs_path" Content="Browse.." Grid.Column="5" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Width="75" Click="btn_vs_path_Click"/>
@@ -22,10 +22,10 @@
 
         <Label Content="Platform: " HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
-        <CheckBox x:Name="chk_project_x86d" Content="x86 Debug" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" IsEnabled="False"/>
-        <CheckBox x:Name="chk_project_x86r" Content="x86 Release" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" IsEnabled="False"/>
-        <CheckBox x:Name="chk_project_x64d" Content="x64 Debug" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" IsChecked="True" IsEnabled="False"/>
-        <CheckBox x:Name="chk_project_x64r" Content="x64 Release" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" IsEnabled="False"/>
+        <CheckBox x:Name="chk_project_x86d" Content="x86 Debug" HorizontalAlignment="Left" Margin="8,45,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" IsEnabled="False"/>
+        <CheckBox x:Name="chk_project_x86r" Content="x86 Release" HorizontalAlignment="Left" Margin="8,68,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" IsEnabled="False"/>
+        <CheckBox x:Name="chk_project_x64d" Content="x64 Debug" HorizontalAlignment="Left" Margin="8,45,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" IsChecked="True" IsEnabled="False"/>
+        <CheckBox x:Name="chk_project_x64r" Content="x64 Release" HorizontalAlignment="Left" Margin="8,68,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" IsEnabled="False"/>
 
         <RadioButton x:Name="rad_project_x86" Content="x86" Grid.Column="2" HorizontalAlignment="Left" Margin="10,16,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="project_architecture" IsChecked="False" />
         <RadioButton x:Name="rad_project_x64" Content="x64" Grid.Column="3" HorizontalAlignment="Left" Margin="10,16,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="project_architecture" IsChecked="True" />
@@ -50,6 +50,7 @@
         <Button x:Name="btn_exit" Content="Exit" Grid.Column="5" HorizontalAlignment="Left" Margin="10,54,0,0" Grid.Row="4" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.08,0.25" Height="30" Click="btn_exit_Click"/>
         <Button x:Name="btn_mgmt_visit_web" Content="Visit OpenCV" HorizontalAlignment="Left" Margin="6,59,0,0" Grid.Row="4" VerticalAlignment="Top" Width="94" Height="25" Grid.Column="3" Click="btn_mgmt_visit_web_Click"/>
         <Button x:Name="btn_mgmt_check_update" Content="Check Update" Grid.Column="3" HorizontalAlignment="Left" Margin="6,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="94" Height="39" Click="btn_mgmt_check_update_Click"/>
+        <Label Content="(Modification Not Recommended)" Grid.Column="2" HorizontalAlignment="Left" Margin="16,77,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="209" Height="24" FontWeight="Bold" Foreground="Red"/>
 
 
         <Grid.ColumnDefinitions>

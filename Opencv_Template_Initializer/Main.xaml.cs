@@ -19,6 +19,7 @@ using System.IO.Packaging;
 
 using System.Security.Principal;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace Opencv_Template_Initializer
 {
@@ -44,6 +45,9 @@ namespace Opencv_Template_Initializer
         String result_path;
         String vs_template_path;
 
+        int winVerMajor = -1;
+        int winVerMinor = -1;
+        int winVerBuild = -1;
 
         const String VS_TEMPLATE_PATH_15 = @"\Visual Studio 2015\Templates\ProjectTemplates";
         const String VS_TEMPLATE_PATH_17 = @"\Visual Studio 2017\Templates\ProjectTemplates";
@@ -53,6 +57,78 @@ namespace Opencv_Template_Initializer
 
         static bool dirSearchFinded = false;
         int cvVer;
+
+
+        public void winverParse() {
+            ProcessStartInfo proInfo = new ProcessStartInfo();
+            Process pro = new Process();
+            proInfo.FileName = @"cmd";
+            proInfo.CreateNoWindow = true;
+            proInfo.UseShellExecute = false;
+            proInfo.RedirectStandardInput = true;
+            proInfo.RedirectStandardOutput = true;
+            proInfo.RedirectStandardError = true;
+            pro.StartInfo = proInfo;
+            pro.Start();
+
+            pro.StandardInput.Write("ver" + Environment.NewLine);
+            pro.StandardInput.Close();
+            string winverData = pro.StandardOutput.ReadToEnd();
+            pro.WaitForExit();
+            pro.Close();
+
+            Regex re_winver = new Regex(@"Version (\d+)\.(\d+).(\d+)*");
+            Match m = re_winver.Match(winverData);
+            if (m.Success) {
+                Group Major = m.Groups[1];
+                winVerMajor = int.Parse(Major.Value);
+                Group Minor = m.Groups[2];
+                winVerMinor = int.Parse(Minor.Value);
+                Group Build = m.Groups[3];
+                winVerBuild = int.Parse(Build.Value);
+
+
+            } else {
+                System.Environment.Exit(-1);
+            }
+
+        }
+
+        public String detectSDKVersion(int major, int minor, int build) {
+            String sdkVer = "8.1";
+            if(major < 6) {
+                showMsg("지원하지 않는 운영체제입니다", MessageBoxImage.Error);
+                System.Environment.Exit(-1);
+
+            }
+            if (major < 10) {
+                return sdkVer;
+            }
+            if (major == 10) {
+
+                try {
+                    bool is64 = Environment.Is64BitOperatingSystem;
+                    String tmpPath = @"SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\Windows\v10.0";
+                    if (!is64) {
+                        tmpPath = tmpPath.Replace(@"WOW6432Node\", "");
+                    }
+
+                    using (RegistryKey key = Registry.LocalMachine.OpenSubKey(tmpPath)) {
+                        if (key != null) {
+                            sdkVer = key.GetValue("ProductVersion").ToString();
+                            sdkVer += ".0";
+                        }
+                    }
+                } catch (Exception ex)  //just for demonstration...it's always best to handle specific exceptions
+                  {
+                    //react appropriately
+                }
+
+
+            }
+
+            return sdkVer;
+        }
 
         Dictionary<String, CheckBox> chk_project_incl_dict;
 
@@ -76,6 +152,7 @@ namespace Opencv_Template_Initializer
                 return;
             }
 
+            winverParse();
 
             //chk_project_architecture = new CheckBox[] { chk_project_x86r, chk_project_x86d, chk_project_x64r, chk_project_x64d};
             chk_project_incl = new CheckBox[] { chk_project_incl_main, chk_project_incl_lena, chk_project_incl_wildlife };
@@ -181,13 +258,6 @@ namespace Opencv_Template_Initializer
                 return;
             }
 
-            Version osVer = Environment.OSVersion.Version;
-            float osVerDetail;
-            if(osVer.Major < 6) {
-                showMsg("now supported.", MessageBoxImage.Error);
-                return;
-            }
-
             int vsVer;
             if (rad_vs_2015.IsChecked == true) {
                 vsVer = 140;
@@ -195,17 +265,17 @@ namespace Opencv_Template_Initializer
                 vsVer = 141;
             }
             
-            osVerDetail = osVer.Major + (osVer.Minor * 0.1f);
-
             try {
 
                 FileManager fm = new FileManager();
+
                 fm.cleanFolder(FOLDER_SRC);
                 fm.decompress(FILE_SRC, FOLDER_SRC);
+                String osVer = detectSDKVersion(winVerMajor, winVerMinor, winVerBuild);
+                WizardHandler wh = new WizardHandler(osVer, vsVer, cvVer, result_path);
 
-                WizardHandler wh = new WizardHandler(osVerDetail, vsVer, cvVer, result_path);
                 //wh.change_doc2_platform_toolset(convertChkValue(chk_project_architecture));
-                wh.change_doc2_platform_toolset(true);
+                wh.change_doc2_platform_toolset((bool)rad_project_x64.IsChecked);
                 wh.change_doc2_windows_target_platform();
 
                 wh.change_doc1_incl(chk_project_incl_dict);
@@ -214,7 +284,7 @@ namespace Opencv_Template_Initializer
                 fm.compress(FOLDER_SRC, FILE_DEST);
                 fm.cleanFolder(FOLDER_SRC);
                 fm.copyFile(FILE_DEST, vs_template_path + @"\" + FILE_DEST);
-
+                FileManager.deleteFile(FILE_DEST);
 
                 showMsg("설정이 완료되었습니다", MessageBoxImage.Information);
                 showMsg("Visual Studio를 재 시작 하십시오", MessageBoxImage.Information);
@@ -227,7 +297,7 @@ namespace Opencv_Template_Initializer
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            showMsg("OpenCV Intializer 1.2.0\n\n" +
+            showMsg("OpenCV Intializer 1.3.0\n\n" +
                 "Myoa Engineering\n" +
                 "myoatm@gmail.com\n"
                 ,MessageBoxImage.Information);

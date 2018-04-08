@@ -49,7 +49,7 @@ namespace Opencv_Template_Initializer {
 
         public bool copyFile(String src, String dest) {
             if(File.Exists(src)) {
-                File.Copy(src, dest);
+                File.Copy(src, dest, true);
             }
             return false;
             
