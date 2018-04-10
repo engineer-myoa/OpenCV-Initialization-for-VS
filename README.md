@@ -1,10 +1,17 @@
 OpenCV_Initialization-for-VS
 ===========================
 
-## 소개 / Introduction
+# 소개 / Introduction
 Windows, Visual Studio 개발 환경에서 OpenCV를 사용하기 편리하도록 환경변수 및 템플릿을 생성을 지원해주는 응용프로그램입니다.
 
-## 사용방법 / HOW TO USE
+# 다운로드 / Download
+a) Release binary(exe) File
+1. download release folder
+
+b) Source Code
+1. download solution with related files
+
+# 사용방법 / HOW TO USE
 ### a) English
 1. Get OpenCV windows release https://opencv.org/releases.html
 2. Extract archive file
@@ -25,12 +32,12 @@ Windows, Visual Studio 개발 환경에서 OpenCV를 사용하기 편리하도�
 6. OpenCV Template이 프로젝트 템플릿 목록에 추가되어있습니다.
 
 
-## 적용 사항 / Affected things
+# 적용 사항 / Affected things
 1. "PATH" which in system environment path added OpenCV bin folder
 2. In OpenCV Template, pre-initialized OpenCV Header path and lib path
 3. In project folder included some content what is you were checked.
 
-## 기타 사항 / Trouble Shoot
+# 기타 사항 / ETC, Trouble Shoot
 
 1. If you applied x64 platform, you must changed build architecture(or platform) to x64 when you created project.
 2. If you seen SDK Version Not found error with Compile time or Typing time, 
